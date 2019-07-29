@@ -1,0 +1,53 @@
+mysql数据库
+1、开发的角度	：1. 编写sql语句；2.数据库对象（表，视图，索引，触发器，存储过程，游标，序列，同义词）
+2、DBA的角度        ：数据库的管理，创建删除优化运维，甚至建表，保证数据库安全且稳定的运行
+SQL:结构化查询语言
+1.数据库定义语言（DDL） creat alter(修改) drop（） truncate(一次性删除表中的记录 ) //DDL和DML语言区别？DDL语言事务是自动提交的。不需要
+2.数据库操作语言（DML）insert update delete(带条件的删除)				commit。DML需要commit或者rollback
+3.数据库查询语言（DQL）select
+4.数据库控制语言（DCL）权限控制  grant (赋予)  revoke（收回）
+5.事务控制语言（TCL）commit   rollback    savepoint(保存点)
+
+事务指的是数据库的事务。
+	事务是一个逻辑的工作单元，在这个单元里面，会执行多个sql语句，但是都属于一个事务，特点，要么全部成功，要么全部失败
+ACID: 原子性     一致性   隔离性     持久性
+
+数据类型：
+  每种数据库的数据类型都不一样
+  数据类型：       65535                255
+  1.字符型     varchar（） 或者char（）             Oracle 采用varchar2（）
+  2.数值型    tinyInt int   float -近似小数-  double     decimal-定点小数                       Oracle  numbe
+  3.时间类型  date（年月日）    time（时分秒）  
+                 datetime     时间戳 TimeStamp （时间的毫秒数）                   Oracle   date（年月日时分秒）和时间戳   
+   特殊类型：
+    图片 音频等数据：BLOB(64KB) LongBlob        Oracle也是BLOB
+	大文本： Text类型
+
+
+varchar 和char的区别                                               
+vachar 可变长度  char固定长度
+varchar（20）最长存20个字符或者字节
+char（20）最小和最大都是20  不足的用空格来补
+
+Oracle:
+	版本：  8I  9I  10G  11G   12C
+安装目录 不能有中文 安装的路径不能有空格
+
+
+
+ 如何保证数据是完整的？如何避免这种情况？
+原因：表和表只是逻辑上有了外键关系，主外键相等，但是物理上没有限制
+数据的完整性：
+	1.实体完整性
+	2.域完整性 非空限制（约束）  检查约束（check）  default 默认值
+	3.参照完整性（引用完整性） 主外键物理上必须相等，通过外键约束
+通过约束来保证数据的三个方面的完整性，约束的语句是：
+alter table emp add constraint fk_ deptno foreign key (deptno) references dept(deptno) 
+级联删除   on  delete cascade     on delete set null
+经验
+    1.外键不能加非空约束
+    2.实战不设外键约束
+
+Threadlocal 线程本地变量
+	local 绑定了当前的线程，本质上是一个类似于Map的集合，但是只有一个Value，key就是当前线程，在同一个线程中，取到的value是相同的
+赋值： set方法   取值就是get方法
